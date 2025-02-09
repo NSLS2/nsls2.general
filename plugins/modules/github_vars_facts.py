@@ -218,6 +218,7 @@ def main():
             data.update(json.loads(n["content"]))
 
     # Now if needed we apply regex to the list
+    filtered_keys = []
     if len(module.params["filters"]) > 0:
         filtered_data = {}
         for f in module.params["filters"]:
@@ -238,7 +239,7 @@ def main():
         _data = {(module.params["prefix"] + key): value for key, value in data.items()}
         data = _data
 
-    module.exit_json(ansible_facts=data, filtered_keys=[], changed=False)
+    module.exit_json(ansible_facts=data, filtered_keys=filtered_keys, changed=False)
 
 
 if __name__ == "__main__":
