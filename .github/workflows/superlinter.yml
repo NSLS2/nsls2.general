@@ -1,5 +1,5 @@
 ---
-name: Lint
+name: Run Superlinter
 
 on: # yamllint disable-line rule:truthy
   push:
@@ -19,7 +19,7 @@ jobs:
       contents: read
       packages: read
       statuses: write
-      pull-request: write
+      pull-requests: write
 
     steps:
       - name: Checkout code
