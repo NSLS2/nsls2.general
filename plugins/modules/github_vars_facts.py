@@ -213,9 +213,9 @@ def run_module():
     if len(module.params["filters"]) > 0:
         filtered_data = {}
         for f in module.params["filters"]:
-            for key in data.keys():
+            for key, value in data.items():
                 if re.match(f, key):
-                    filtered_data[key] = data[key]
+                    filtered_data[key] = value
 
         filtered_keys = [k for k in data if k not in filtered_data]
 
