@@ -1,3 +1,5 @@
+---
+
 namespace: nsls2
 name: general
 version: 1.0.0
@@ -9,9 +11,9 @@ license:
   - 'BSD-3-Clause'
 license_file: 'LICENSE'
 tags: [networking]
-dependencies: {}
+# dependencies: {}
 repository: http://github.com/nsls2/nsls2.general
 documentation: http://docs.nsls2.bnl.gov
 homepage: http://www.bnl.gov/nsls2
 issues: https://github.com/NSLS2/nsls2.general/issues
-build_ignore: []
+# build_ignore: []
