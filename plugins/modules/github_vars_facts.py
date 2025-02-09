@@ -1,4 +1,5 @@
 """Ansible module to read variables from YAML and JSON files on GitHub"""
+
 from __future__ import absolute_import, division, print_function
 
 import base64
@@ -172,7 +173,7 @@ class GitHubFileReader:
         return self._contents
 
 
-def run_module():
+def main():
     """Run the Ansible module"""
     module_args = {
         "owner": {"type": "str", "required": True},
@@ -226,4 +227,4 @@ def run_module():
 
 
 if __name__ == "__main__":
-    run_module()
+    main()

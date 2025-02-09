@@ -1,4 +1,5 @@
 """Ansible vars plugin for NSLS2Network"""
+
 from __future__ import absolute_import, division, print_function
 
 from ansible.plugins.vars import BaseVarsPlugin  # type: ignore
@@ -14,7 +15,7 @@ DOCUMENTATION = """
 """
 
 
-class VarsModule(BaseVarsPlugin):  # [too-few-public-methods]
+class VarsModule(BaseVarsPlugin):  # pylint: disable=too-few-public-methods
     """NSLS2Network Ansible vars module"""
 
     def get_vars(self, loader, path, entities):

@@ -1,4 +1,5 @@
 """Ansible filter to find networks from subnet in nsls2network"""
+
 from __future__ import absolute_import, division, print_function
 
 from ipaddress import IPv4Address
@@ -25,7 +26,7 @@ def find(searchnet):
     return None
 
 
-class FilterModule():
+class FilterModule:
     """Ansible filter module for nsls2network"""
 
     def filters(self):
