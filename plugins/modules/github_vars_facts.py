@@ -123,7 +123,8 @@ class GitHubFileReader:
     def _get_branch_sha(self, branch):
         # Get from here
         j = self._get_json(
-            f"https://api.github.com/repos/{self._owner}/{self._repo}/branches/{branch}"
+            f"https://api.github.com/repos/{self._owner}/"
+            f"{self._repo}/branches/{branch}"
         )
         head_tree_sha = j["commit"]["commit"]["tree"]["sha"]
         return head_tree_sha
@@ -131,7 +132,8 @@ class GitHubFileReader:
     def _get_tree(self, sha, path=None, recursive=None):
         _recursive = bool(recursive)
         j = self._get_json(
-            f"https://api.github.com/repos/{self._owner}/{self._repo}/git/trees/{sha}?recursive=f{_recursive}"
+            f"https://api.github.com/repos/{self._owner}/{self._repo}/"
+            f"git/trees/{sha}?recursive=f{_recursive}"
         )
 
         if path is not None:
