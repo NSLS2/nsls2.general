@@ -1,4 +1,3 @@
-#!/usr/bin/python
 """Ansible module to read variables from YAML and JSON files on GitHub"""
 from __future__ import absolute_import, division, print_function
 
