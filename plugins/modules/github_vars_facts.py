@@ -1,4 +1,5 @@
 #!/usr/bin/python
+"""Ansible module to read variables from YAML and JSON files on GitHub"""
 from __future__ import absolute_import, division, print_function
 
 import base64
@@ -90,6 +91,7 @@ filteed_keys:
 
 
 class GitHubFileReader:
+    """Read files from GitHub and return dictonary"""
 
     def __init__(self, owner, repo, token=None):
         self._owner = owner
@@ -102,9 +104,10 @@ class GitHubFileReader:
         if token is not None:
             self._session.headers.update({"Authorization": f"Bearer {token}"})
 
-        self._contents = list()
+        self._contents = []
 
     def get_tree(self, branch, path=None, recursive=None):
+        """Get tree from GitHub API"""
         sha = self._get_branch_sha(branch)
         files = self._get_tree(sha, path=path, recursive=recursive)
         for file in files:
@@ -149,6 +152,7 @@ class GitHubFileReader:
         return j
 
     def _process_file(self, j, name=None):
+        """Process json contents of a GitHub file"""
         # if we have content, then we can process
         if "content" in j:
             if j["encoding"] == "base64":
@@ -162,45 +166,42 @@ class GitHubFileReader:
                 else:
                     name = ""
 
-            self._contents.append(
-                dict(
-                    content=_content,
-                    name=name,
-                )
-            )
+            self._contents.append({"content": _content, "name": name})
 
     def get_content(self):
+        """Return content dictonary"""
         return self._contents
 
 
 def run_module():
     module_args = dict(
-        owner=dict(type="str", required=True),
-        repo=dict(type="str", required=True),
-        branch=dict(type="str", required=False, default="main"),
-        path=dict(type="str", required=False, default=None),
-        token=dict(type="str", required=False, no_log=True, default=None),
-        filters=dict(type="list", required=False, default=list()),
-        recursive=dict(type="bool", required=False, default=False),
+        owner={"type": "str", "required": True},
+        repo={"type": "str", "required": True},
+        branch={"type": "str", "required": False, "default": "main"},
+        path={"type": "str", "required": False, "default": None},
+        token={"type": "str", "required": False, "no_log": True, "default": None},
+        filters={"type": "list", "required": False, "default": []},
+        recursive={"type": "bool", "required": False, "default": False},
     )
 
     module = AnsibleModule(argument_spec=module_args, supports_check_mode=True)
 
-    owner = module.params["owner"]
-    repo = module.params["repo"]
-    branch = module.params["branch"]
-    path = module.params["path"]
-    recursive = module.params["recursive"]
-
     try:
-        ghfr = GitHubFileReader(owner, repo, module.params.get("token"))
-        c = ghfr.get_tree(branch, path=path, recursive=recursive)
+        ghfr = GitHubFileReader(
+            module.params["owner"], module.params["repo"], module.params["token"]
+        )
+        c = ghfr.get_tree(
+            module.params["branch"],
+            path=module.params["path"],
+            recursive=module.params["recursive"],
+        )
+
     except requests.HTTPError as e:
         code = e.response.status_code
         reason = e.response.reason
         module.fail_json(msg=f'HTTP Error. Status code {code} Reason "{reason}"')
 
-    data = dict()
+    data = {}
     for n in c:
         if os.path.splitext(n["name"])[1].lower() in [".yaml", ".yml"]:
             data.update(yaml.safe_load(n["content"]))
@@ -209,7 +210,7 @@ def run_module():
 
     # Now if needed we apply regex to the list
     if len(module.params["filters"]) > 0:
-        filtered_data = dict()
+        filtered_data = {}
         for filter in module.params["filters"]:
             for key in data:
                 if re.match(filter, key):
