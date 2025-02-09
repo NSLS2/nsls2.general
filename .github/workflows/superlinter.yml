@@ -19,7 +19,7 @@ jobs:
       contents: read
       packages: read
       statuses: write
-      pull_request: write
+      pull-request: write
 
     steps:
       - name: Checkout code
