@@ -190,7 +190,7 @@ def main():
         "filters": {"type": "list", "required": False, "default": []},
         "recursive": {"type": "bool", "required": False, "default": False},
         "prefix": {"type": "str", "required": False, "default": None},
-        "varname": {"type": "str", "required": False, "default": False},
+        "varname": {"type": "str", "required": False, "default": None},
     }
 
     module = AnsibleModule(argument_spec=module_args, supports_check_mode=True)
