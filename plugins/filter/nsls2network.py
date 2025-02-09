@@ -26,6 +26,7 @@ def find(searchnet):
 
 
 class FilterModule(object):
+
     def filters(self):
         return {
             "nsls2network_find": self.find,
