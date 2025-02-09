@@ -1,3 +1,4 @@
+"""Ansible vars plugin for NSLS2Network"""
 from __future__ import absolute_import, division, print_function
 
 from ansible.plugins.vars import BaseVarsPlugin  # type: ignore
@@ -13,16 +14,16 @@ DOCUMENTATION = """
 """
 
 
-class VarsModule(BaseVarsPlugin):
+class VarsModule(BaseVarsPlugin):  # [too-few-public-methods]
     """NSLS2Network Ansible vars module"""
 
-    def get_vars(self, loader, path, entities, cache=True):
+    def get_vars(self, loader, path, entities):
         """Parses the inventory file"""
 
         if not isinstance(entities, list):
             entities = [entities]
 
-        super(VarsModule, self).get_vars(loader, path, entities)
+        super().get_vars(loader, path, entities)
 
         data = {}
         data["nsls2network"] = nsls2network_sanitized
