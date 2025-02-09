@@ -1,6 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
-__metaclass__ = type
+# __metaclass__ = type
 
 from ansible.plugins.vars import BaseVarsPlugin  # type: ignore
 from nsls2network import nsls2network_sanitized  # type: ignore[attr-defined]

@@ -11,7 +11,7 @@ import requests
 import yaml
 from ansible.module_utils.basic import AnsibleModule
 
-__metaclass__ = type
+# __metaclass__ = type
 
 DOCUMENTATION = r"""
 ---
@@ -174,15 +174,16 @@ class GitHubFileReader:
 
 
 def run_module():
-    module_args = dict(
-        owner={"type": "str", "required": True},
-        repo={"type": "str", "required": True},
-        branch={"type": "str", "required": False, "default": "main"},
-        path={"type": "str", "required": False, "default": None},
-        token={"type": "str", "required": False, "no_log": True, "default": None},
-        filters={"type": "list", "required": False, "default": []},
-        recursive={"type": "bool", "required": False, "default": False},
-    )
+    """Run the Ansible module"""
+    module_args = {
+        "owner": {"type": "str", "required": True},
+        "repo": {"type": "str", "required": True},
+        "branch": {"type": "str", "required": False, "default": "main"},
+        "path": {"type": "str", "required": False, "default": None},
+        "token": {"type": "str", "required": False, "no_log": True, "default": None},
+        "filters": {"type": "list", "required": False, "default": []},
+        "recursive": {"type": "bool", "required": False, "default": False},
+    }
 
     module = AnsibleModule(argument_spec=module_args, supports_check_mode=True)
 
@@ -211,9 +212,9 @@ def run_module():
     # Now if needed we apply regex to the list
     if len(module.params["filters"]) > 0:
         filtered_data = {}
-        for filter in module.params["filters"]:
-            for key in data:
-                if re.match(filter, key):
+        for f in module.params["filters"]:
+            for key in data.keys():
+                if re.match(f, key):
                     filtered_data[key] = data[key]
 
         filtered_keys = [k for k in data if k not in filtered_data]
@@ -222,12 +223,8 @@ def run_module():
             ansible_facts=filtered_data, filtered_keys=filtered_keys, changed=False
         )
 
-    module.exit_json(ansible_facts=data, filtered_keys=list(), changed=False)
-
-
-def main():
-    run_module()
+    module.exit_json(ansible_facts=data, filtered_keys=[], changed=False)
 
 
 if __name__ == "__main__":
-    main()
+    run_module()
