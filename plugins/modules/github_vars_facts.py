@@ -11,8 +11,6 @@ import requests
 import yaml
 from ansible.module_utils.basic import AnsibleModule
 
-# __metaclass__ = type
-
 DOCUMENTATION = r"""
 ---
 module: github_vars_facts
@@ -53,6 +51,14 @@ options:
         description: A list of regular expressions to filter variables on
         required: false
         type: list
+    prefix:
+        description: String to prefix the root keys in the dictionary
+        required: false
+        type: string
+    varname:
+        description: Name of variable to use for variables read from GitHub
+        required: false
+        type: string
 
 author:
     - Stuart B. Wilkins (@stuwilkins)
@@ -183,6 +189,8 @@ def main():
         "token": {"type": "str", "required": False, "no_log": True, "default": None},
         "filters": {"type": "list", "required": False, "default": []},
         "recursive": {"type": "bool", "required": False, "default": False},
+        "prefix": {"type": "str", "required": False, "default": None},
+        "varname": {"type": "str", "required": False, "default": False},
     }
 
     module = AnsibleModule(argument_spec=module_args, supports_check_mode=True)
@@ -219,9 +227,16 @@ def main():
 
         filtered_keys = [k for k in data if k not in filtered_data]
 
-        module.exit_json(
-            ansible_facts=filtered_data, filtered_keys=filtered_keys, changed=False
-        )
+        data = filtered_data
+
+    if module.params["varname"] is not None:
+        _data = {}
+        _data[module.params["varname"]] = data
+        data = _data
+
+    if module.params["prefix"] is not None:
+        _data = {(module.params["prefix"] + key): value for key, value in data.items()}
+        data = _data
 
     module.exit_json(ansible_facts=data, filtered_keys=[], changed=False)
 
