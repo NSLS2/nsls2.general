@@ -8,9 +8,11 @@ DOCUMENTATION = r"""
 ---
 module: github_vars_facts
 
-short_description: Module to read GitHub repository yaml and json files as ansible facts
+short_description: Module to read GitHub repository and set facts
 version_added: "1.0.0"
-description: Module to read GitHub repository, parse yaml or json files and insert the contents into ansible facts
+description:
+    - Module to read GitHub repository, parse yaml or json files
+    - and insert the contents into ansible facts
 
 options:
     owner:
