@@ -1,7 +1,5 @@
 from __future__ import absolute_import, division, print_function
 
-# __metaclass__ = type
-
 from ipaddress import IPv4Address
 
 from nsls2network import nsls2network  # type: ignore[attr-defined]
