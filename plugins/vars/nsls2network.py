@@ -16,6 +16,7 @@ DOCUMENTATION = """
 
 
 class VarsModule(BaseVarsPlugin):
+    """NSLS2Network Ansible vars module"""
     def get_vars(self, loader, path, entities, cache=True):
         """Parses the inventory file"""
 

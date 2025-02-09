@@ -1,6 +1,12 @@
 #!/usr/bin/python
-
+import base64
+import json
+import os.path
+import re
+import requests
+import yaml
 from __future__ import absolute_import, division, print_function
+from ansible.module_utils.basic import AnsibleModule
 
 __metaclass__ = type
 
@@ -79,15 +85,6 @@ filteed_keys:
     returned: always
     sample: ['key1', 'key2']
 """
-
-import base64
-import json
-import os.path
-import re
-import requests
-import yaml
-
-from ansible.module_utils.basic import AnsibleModule
 
 
 class GitHubFileReader:
