@@ -7,7 +7,7 @@ from ipaddress import IPv4Address
 from nsls2network import nsls2network  # type: ignore[attr-defined]
 
 DOCUMENTATION = r"""
-    name: nsls2network
+    name: nsls2network_filter
     author: Stuart B. Wilkins (@stuwilkins) <swilkins@bnl.gov>
     version_added: "0.1"
     short_description: Filters to return network and subnet from nsls2network.
