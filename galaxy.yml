@@ -9,7 +9,7 @@ description: Ansible collection for NSLS-II general functions
 license:
   - "BSD-3-Clause"
 license_file: "LICENSE"
-tags: [networking]
+tags: [infrastructure]
 # dependencies: {}
 repository: http://github.com/nsls2/nsls2.general
 documentation: http://docs.nsls2.bnl.gov
