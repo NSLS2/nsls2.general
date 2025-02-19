@@ -1,6 +1,6 @@
-from __future__ import absolute_import, division, print_function
+"""Ansible vars plugin for NSLS2Network"""
 
-__metaclass__ = type
+from __future__ import absolute_import, division, print_function
 
 from ansible.plugins.vars import BaseVarsPlugin  # type: ignore
 from nsls2network import nsls2network_sanitized  # type: ignore[attr-defined]
@@ -15,14 +15,16 @@ DOCUMENTATION = """
 """
 
 
-class VarsModule(BaseVarsPlugin):
-    def get_vars(self, loader, path, entities, cache=True):
+class VarsModule(BaseVarsPlugin):  # pylint: disable=too-few-public-methods
+    """NSLS2Network Ansible vars module"""
+
+    def get_vars(self, loader, path, entities):
         """Parses the inventory file"""
 
         if not isinstance(entities, list):
             entities = [entities]
 
-        super(VarsModule, self).get_vars(loader, path, entities)
+        super().get_vars(loader, path, entities)
 
         data = {}
         data["nsls2network"] = nsls2network_sanitized

@@ -1,13 +1,13 @@
-from __future__ import absolute_import, division, print_function
+"""Ansible filter to find networks from subnet in nsls2network"""
 
-__metaclass__ = type
+from __future__ import absolute_import, division, print_function
 
 from ipaddress import IPv4Address
 
 from nsls2network import nsls2network  # type: ignore[attr-defined]
 
 DOCUMENTATION = r"""
-    name: nsls2network
+    name: nsls2network_filter
     author: Stuart B. Wilkins (@stuwilkins) <swilkins@bnl.gov>
     version_added: "0.1"
     short_description: Filters to return network and subnet from nsls2network.
@@ -18,6 +18,7 @@ DOCUMENTATION = r"""
 
 
 def find(searchnet):
+    """Find network in nsls2network"""
     for net in nsls2network:
         for subnet in nsls2network[net]:
             if IPv4Address(searchnet) in nsls2network[net][subnet]["subnet"]:
@@ -25,20 +26,24 @@ def find(searchnet):
     return None
 
 
-class FilterModule(object):
+class FilterModule:
+    """Ansible filter module for nsls2network"""
+
     def filters(self):
+        """Return filters for this module"""
         return {
             "nsls2network_find": self.find,
         }
 
     def find(self, searchnet, mode=None):
+        """Find subnet in nsls2network"""
         res = find(searchnet)
         if res is not None:
             if mode == "net":
                 return res["net"]
-            elif mode == "subnet":
+            if mode == "subnet":
                 return res["subnet"]
-            else:
-                return res
+
+            return res
 
         return None
