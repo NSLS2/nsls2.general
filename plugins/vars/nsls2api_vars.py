@@ -44,14 +44,19 @@ class VarsModule(BaseVarsPlugin):  # pylint: disable=too-few-public-methods
 
         data = {}
 
-        data['satelite_location_name'] = \
-            {d['network_locations'][0]: d['nsls2_redhat_satellite_location_name']
-             for d in beamlines if len(d['network_locations']) > 0}
+        data["satelite_location_name"] = {
+            d["network_locations"][0]: d["nsls2_redhat_satellite_location_name"]
+            for d in beamlines
+            if len(d["network_locations"]) > 0
+        }
 
-        data['beamlines'] = \
-            [{'tla': d['name'].lower(),
-              'operator_account': d['service_accounts']['operator']}
-             for d in beamlines]
+        data["beamlines"] = [
+            {
+                "tla": d["name"].lower(),
+                "operator_account": d["service_accounts"]["operator"],
+            }
+            for d in beamlines
+        ]
         return data
 
 
