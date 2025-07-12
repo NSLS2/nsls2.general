@@ -57,6 +57,8 @@ class VarsModule(BaseVarsPlugin):  # pylint: disable=too-few-public-methods
             for d in beamlines
         ]
 
+        data["netwoks"] = [nn for d in beamlines for nn in d["network_locations"]]
+
         return data
 
 
