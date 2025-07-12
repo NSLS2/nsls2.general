@@ -62,5 +62,5 @@ class VarsModule(BaseVarsPlugin):  # pylint: disable=too-few-public-methods
 
 if __name__ == "__main__":
     mod = VarsModule()
-    data = mod.get_vars(None, None, None)
-    print(json.dumps(data, sort_keys=True, indent=4))
+    v = mod.get_vars(None, None, None)
+    print(json.dumps(v, sort_keys=True, indent=4))
