@@ -2,10 +2,10 @@
 
 from __future__ import absolute_import, division, print_function
 
-from ansible.plugins.vars import BaseVarsPlugin  # type: ignore
+import json
 
 import requests
-import json
+from ansible.plugins.vars import BaseVarsPlugin  # type: ignore
 
 DOCUMENTATION = """
     name: nsls2api
@@ -40,7 +40,6 @@ class VarsModule(BaseVarsPlugin):  # pylint: disable=too-few-public-methods
         super().get_vars(loader, path, entities)
 
         beamlines = self._get_json("https://api.nsls2.bnl.gov/v1/beamlines")
-        print(beamlines[0])
 
         data = {}
 
@@ -57,6 +56,7 @@ class VarsModule(BaseVarsPlugin):  # pylint: disable=too-few-public-methods
             }
             for d in beamlines
         ]
+
         return data
 
 
