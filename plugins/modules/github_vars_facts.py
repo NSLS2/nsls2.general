@@ -88,7 +88,7 @@ EXAMPLES = r"""
 """
 
 RETURN = r"""
-filteed_keys:
+filtered_keys:
     description: A list of keys which were filtered by the regular expressions
     type: list
     returned: always
