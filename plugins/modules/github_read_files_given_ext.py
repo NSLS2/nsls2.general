@@ -66,7 +66,7 @@ EXAMPLES = r"""
     path: 'host_vars/some.host.com'
     branch: 'main'
     token: '<Redacted>'
-    extension: '.txt'
+    extension: ['.txt']
 """
 
 
@@ -75,7 +75,7 @@ def main():
     module_args = {
         "owner": {"type": "str", "required": True},
         "repo": {"type": "str", "required": True},
-        "extension": {"type": "str", "required": True},
+        "extensions": {"type": "list", "required": True},
         "varname": {"type": "str", "required": True},
         "branch": {"type": "str", "required": False, "default": "main"},
         "path": {"type": "str", "required": False, "default": None},
@@ -101,7 +101,7 @@ def main():
 
     data = {module.params["varname"]: {}}
     for n in c:
-        if os.path.splitext(n["name"])[1].lower() == module.params["extension"]:
+        if os.path.splitext(n["name"])[1].lower() in module.params["extensions"]:
             data[module.params["varname"]][os.path.basename(n["name"])] = n["content"]
 
 
