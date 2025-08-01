@@ -2,7 +2,6 @@
 
 from __future__ import absolute_import, division, print_function
 
-import base64
 import json
 import os.path
 import re

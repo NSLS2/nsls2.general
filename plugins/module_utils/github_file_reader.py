@@ -1,9 +1,7 @@
+import base64
+
 import requests
 
-import base64
-import json
-import os.path
-import re
 
 class GitHubFileReader:
     """Read files from GitHub and return dictonary"""

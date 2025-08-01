@@ -2,13 +2,9 @@
 
 from __future__ import absolute_import, division, print_function
 
-import base64
-import json
 import os.path
-import re
 
 import requests
-import yaml
 from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.nsls2.general.plugins.module_utils.github_file_reader import (
     GitHubFileReader,
@@ -18,7 +14,7 @@ DOCUMENTATION = r"""
 ---
 module: github_read_files_given_ext
 
-short_description: Module to read GitHub repository and set facts
+short_description: Module to read files given extension from GitHub repository
 version_added: "1.0.1"
 description:
     - Module to find list of files with given extension in a GitHub repository,
