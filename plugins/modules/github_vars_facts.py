@@ -10,7 +10,9 @@ import re
 import requests
 import yaml
 from ansible.module_utils.basic import AnsibleModule
-from ansible_collections.nsls2.general.plugins.module_utils.github_file_reader import GitHubFileReader
+from ansible_collections.nsls2.general.plugins.module_utils.github_file_reader import (
+    GitHubFileReader,
+)
 
 DOCUMENTATION = r"""
 ---
