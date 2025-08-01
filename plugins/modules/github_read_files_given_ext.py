@@ -1,4 +1,4 @@
-"""Ansible module to get raw download links for all files with given extension from github repository."""
+"""Ansible module to read contents of files with a given ext from a GitHub repo."""
 
 from __future__ import absolute_import, division, print_function
 

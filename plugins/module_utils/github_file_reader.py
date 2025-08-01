@@ -1,3 +1,5 @@
+"""Utility module for reading contents of files from a GitHub repository."""
+
 import base64
 
 import requests
